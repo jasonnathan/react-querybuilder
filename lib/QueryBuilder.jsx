@@ -179,7 +179,7 @@ export default class QueryBuilder extends React.Component {
     }
 
     clearFilter = () => {
-        this.setState({root: this.getInitialQuery()});
+        this.setState({root: this.createRuleGroup()});
         setTimeout(() => this._notifyQueryChange(), 0);
     }
 

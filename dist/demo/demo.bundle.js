@@ -10684,7 +10684,7 @@ var QueryBuilder = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (_ref = QueryBuilder.__proto__ || Object.getPrototypeOf(QueryBuilder)).call.apply(_ref, [this].concat(args)));
 
         _this.clearFilter = function () {
-            _this.setState({ root: _this.getInitialQuery() });
+            _this.setState({ root: _this.createRuleGroup() });
             setTimeout(function () {
                 return _this._notifyQueryChange();
             }, 0);
