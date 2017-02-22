@@ -30,6 +30,7 @@ export default class QueryBuilder extends React.Component {
                 removeGroupAction: React.PropTypes.func,
                 addRuleAction: React.PropTypes.func,
                 removeRuleAction: React.PropTypes.func,
+                cleadQueryAction: React.PropTypes.func,
                 combinatorSelector: React.PropTypes.func,
                 fieldSelector: React.PropTypes.func,
                 operatorSelector: React.PropTypes.func,
@@ -99,6 +100,7 @@ export default class QueryBuilder extends React.Component {
             removeGroupAction: ActionElement,
             addRuleAction: ActionElement,
             removeRuleAction: ActionElement,
+            cleadQueryAction: ActionElement,
             combinatorSelector: ValueSelector,
             fieldSelector: ValueSelector,
             operatorSelector: ValueSelector,
@@ -154,10 +156,32 @@ export default class QueryBuilder extends React.Component {
                     id={id}
                     parentId={null}
                 />
+                {this.props.controlElements.actions ? this.drawActions() : null}
             </div>
         );
     }
 
+    drawActions() {
+        const {actions} = this.props.controlElements;
+        return (
+          <div style={{display: "flex"}}>
+              {actions.map((action, idx) => (
+                <button
+                  className={action.className}
+                  key={idx}
+                  onClick={action.handleClick || this.clearFilter}
+                >
+                    {action.title}
+                </button>
+              ))}
+          </div>
+        );
+    }
+
+    clearFilter = () => {
+        this.setState({root: this.getInitialQuery()});
+        setTimeout(() => this._notifyQueryChange(), 0);
+    }
 
     isRuleGroup(rule) {
         return !!(rule.combinator && rule.rules);
@@ -259,6 +283,7 @@ export default class QueryBuilder extends React.Component {
         const {onQueryChange} = this.props;
         if (onQueryChange) {
             const query = cloneDeep(this.state.root);
+            console.log(query);
             onQueryChange(query);
         }
     }

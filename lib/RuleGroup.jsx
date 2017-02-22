@@ -15,66 +15,68 @@ export default class RuleGroup extends React.Component {
     render() {
         const { combinator, rules, schema: {combinators, controls, onRuleRemove, isRuleGroup, classNames } } = this.props;
           return (
-            <div className={`ruleGroup ${classNames.ruleGroup}`}>
-                {
-                    React.createElement(controls.combinatorSelector,
-                        {
-                            options: combinators,
-                            value: combinator,
-                            className: `ruleGroup-combinators ${classNames.combinators}`,
-                            handleOnChange: this.onCombinatorChange
-                        }
-                    )
-                }
-                {
-                    React.createElement(controls.addRuleAction,
-                        {
-                            label: '+Rule',
-                            className: `ruleGroup-addRule ${classNames.addRule}`,
-                            handleOnClick: this.addRule
-                        }
-                    )
-                }
-                {
-                    React.createElement(controls.addGroupAction,
-                        {
-                            label: '+Group',
-                            className: `ruleGroup-addGroup ${classNames.addGroup}`,
-                            handleOnClick: this.addGroup
-                        }
-                    )
-                }
-                {
-                    this.hasParentGroup() ?
-                        React.createElement(controls.removeGroupAction,
+            <div className="ruleGroupWrapper">
+                <div className={`ruleGroup ${classNames.ruleGroup}`}>
+                    {
+                        React.createElement(controls.combinatorSelector,
                             {
-                                label: 'x',
-                                className: `ruleGroup-remove ${classNames.removeGroup}`,
-                                handleOnClick: this.removeGroup
+                                options: combinators,
+                                value: combinator,
+                                className: `ruleGroup-combinators ${classNames.combinators}`,
+                                handleOnChange: this.onCombinatorChange
                             }
-                        ) : null
-                }
-                 {
-                     rules.map(r=> {
-                         return (
-                             isRuleGroup(r)
-                                 ? <RuleGroup key={r.id}
-                                              id={r.id}
-                                              schema={this.props.schema}
-                                              parentId={this.props.id}
-                                              combinator={r.combinator}
-                                              rules={r.rules}/>
-                                 : <Rule key={r.id}
-                                         id={r.id}
-                                         field={r.field}
-                                         value={r.value}
-                                         operator={r.operator}
-                                         schema={this.props.schema}
-                                         parentId={this.props.id}
-                                         onRuleRemove={onRuleRemove}/>
-                         );
-                     })
-                 }
+                        )
+                    }
+                    {
+                        React.createElement(controls.addRuleAction,
+                            {
+                                label: '+Rule',
+                                className: `ruleGroup-addRule ${classNames.addRule}`,
+                                handleOnClick: this.addRule
+                            }
+                        )
+                    }
+                    {
+                        React.createElement(controls.addGroupAction,
+                            {
+                                label: '+Group',
+                                className: `ruleGroup-addGroup ${classNames.addGroup}`,
+                                handleOnClick: this.addGroup
+                            }
+                        )
+                    }
+                    {
+                        this.hasParentGroup() ?
+                            React.createElement(controls.removeGroupAction,
+                                {
+                                    label: 'x',
+                                    className: `ruleGroup-remove ${classNames.removeGroup}`,
+                                    handleOnClick: this.removeGroup
+                                }
+                            ) : null
+                    }
+                     {
+                         rules.map(r=> {
+                             return (
+                                 isRuleGroup(r)
+                                     ? <RuleGroup key={r.id}
+                                                  id={r.id}
+                                                  schema={this.props.schema}
+                                                  parentId={this.props.id}
+                                                  combinator={r.combinator}
+                                                  rules={r.rules}/>
+                                     : <Rule key={r.id}
+                                             id={r.id}
+                                             field={r.field}
+                                             value={r.value}
+                                             operator={r.operator}
+                                             schema={this.props.schema}
+                                             parentId={this.props.id}
+                                             onRuleRemove={onRuleRemove}/>
+                             );
+                         })
+                     }
+                </div>
             </div>
         );
     }

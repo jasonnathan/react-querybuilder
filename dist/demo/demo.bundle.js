@@ -436,8 +436,15 @@ module.exports = reactProdInvariant;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
 
 /* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
@@ -458,7 +465,7 @@ function shouldUseNative() {
 		// Detect buggy property enumeration order in older V8 versions.
 
 		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
 		test1[5] = 'de';
 		if (Object.getOwnPropertyNames(test1)[0] === '5') {
 			return false;
@@ -487,7 +494,7 @@ function shouldUseNative() {
 		}
 
 		return true;
-	} catch (e) {
+	} catch (err) {
 		// We don't expect any of the above to throw, but better to be safe.
 		return false;
 	}
@@ -507,8 +514,8 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 			}
 		}
 
-		if (Object.getOwnPropertySymbols) {
-			symbols = Object.getOwnPropertySymbols(from);
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
 			for (var i = 0; i < symbols.length; i++) {
 				if (propIsEnumerable.call(from, symbols[i])) {
 					to[symbols[i]] = from[symbols[i]];
@@ -10652,6 +10659,7 @@ var QueryBuilder = function (_React$Component) {
                     removeGroupAction: _react2.default.PropTypes.func,
                     addRuleAction: _react2.default.PropTypes.func,
                     removeRuleAction: _react2.default.PropTypes.func,
+                    cleadQueryAction: _react2.default.PropTypes.func,
                     combinatorSelector: _react2.default.PropTypes.func,
                     fieldSelector: _react2.default.PropTypes.func,
                     operatorSelector: _react2.default.PropTypes.func,
@@ -10674,6 +10682,13 @@ var QueryBuilder = function (_React$Component) {
         }
 
         var _this = _possibleConstructorReturn(this, (_ref = QueryBuilder.__proto__ || Object.getPrototypeOf(QueryBuilder)).call.apply(_ref, [this].concat(args)));
+
+        _this.clearFilter = function () {
+            _this.setState({ root: _this.getInitialQuery() });
+            setTimeout(function () {
+                return _this._notifyQueryChange();
+            }, 0);
+        };
 
         _this.state = {
             root: {},
@@ -10750,6 +10765,30 @@ var QueryBuilder = function (_React$Component) {
                     schema: schema,
                     id: id,
                     parentId: null
+                }),
+                this.props.controlElements.actions ? this.drawActions() : null
+            );
+        }
+    }, {
+        key: 'drawActions',
+        value: function drawActions() {
+            var _this3 = this;
+
+            var actions = this.props.controlElements.actions;
+
+            return _react2.default.createElement(
+                'div',
+                { style: { display: "flex" } },
+                actions.map(function (action, idx) {
+                    return _react2.default.createElement(
+                        'button',
+                        {
+                            className: action.className,
+                            key: idx,
+                            onClick: action.handleClick || _this3.clearFilter
+                        },
+                        action.title
+                    );
                 })
             );
         }
@@ -10897,6 +10936,7 @@ var QueryBuilder = function (_React$Component) {
 
             if (onQueryChange) {
                 var query = (0, _cloneDeep2.default)(this.state.root);
+                console.log(query);
                 onQueryChange(query);
             }
         }
@@ -10940,6 +10980,7 @@ var QueryBuilder = function (_React$Component) {
                 removeGroupAction: _index.ActionElement,
                 addRuleAction: _index.ActionElement,
                 removeRuleAction: _index.ActionElement,
+                cleadQueryAction: _index.ActionElement,
                 combinatorSelector: _index.ValueSelector,
                 fieldSelector: _index.ValueSelector,
                 operatorSelector: _index.ValueSelector,
@@ -11168,43 +11209,47 @@ var RuleGroup = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'ruleGroup ' + classNames.ruleGroup },
-                _react2.default.createElement(controls.combinatorSelector, {
-                    options: combinators,
-                    value: combinator,
-                    className: 'ruleGroup-combinators ' + classNames.combinators,
-                    handleOnChange: this.onCombinatorChange
-                }),
-                _react2.default.createElement(controls.addRuleAction, {
-                    label: '+Rule',
-                    className: 'ruleGroup-addRule ' + classNames.addRule,
-                    handleOnClick: this.addRule
-                }),
-                _react2.default.createElement(controls.addGroupAction, {
-                    label: '+Group',
-                    className: 'ruleGroup-addGroup ' + classNames.addGroup,
-                    handleOnClick: this.addGroup
-                }),
-                this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
-                    label: 'x',
-                    className: 'ruleGroup-remove ' + classNames.removeGroup,
-                    handleOnClick: this.removeGroup
-                }) : null,
-                rules.map(function (r) {
-                    return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
-                        id: r.id,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        combinator: r.combinator,
-                        rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
-                        id: r.id,
-                        field: r.field,
-                        value: r.value,
-                        operator: r.operator,
-                        schema: _this2.props.schema,
-                        parentId: _this2.props.id,
-                        onRuleRemove: onRuleRemove });
-                })
+                { className: 'ruleGroupWrapper' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'ruleGroup ' + classNames.ruleGroup },
+                    _react2.default.createElement(controls.combinatorSelector, {
+                        options: combinators,
+                        value: combinator,
+                        className: 'ruleGroup-combinators ' + classNames.combinators,
+                        handleOnChange: this.onCombinatorChange
+                    }),
+                    _react2.default.createElement(controls.addRuleAction, {
+                        label: '+Rule',
+                        className: 'ruleGroup-addRule ' + classNames.addRule,
+                        handleOnClick: this.addRule
+                    }),
+                    _react2.default.createElement(controls.addGroupAction, {
+                        label: '+Group',
+                        className: 'ruleGroup-addGroup ' + classNames.addGroup,
+                        handleOnClick: this.addGroup
+                    }),
+                    this.hasParentGroup() ? _react2.default.createElement(controls.removeGroupAction, {
+                        label: 'x',
+                        className: 'ruleGroup-remove ' + classNames.removeGroup,
+                        handleOnClick: this.removeGroup
+                    }) : null,
+                    rules.map(function (r) {
+                        return isRuleGroup(r) ? _react2.default.createElement(RuleGroup, { key: r.id,
+                            id: r.id,
+                            schema: _this2.props.schema,
+                            parentId: _this2.props.id,
+                            combinator: r.combinator,
+                            rules: r.rules }) : _react2.default.createElement(_Rule2.default, { key: r.id,
+                            id: r.id,
+                            field: r.field,
+                            value: r.value,
+                            operator: r.operator,
+                            schema: _this2.props.schema,
+                            parentId: _this2.props.id,
+                            onRuleRemove: onRuleRemove });
+                    })
+                )
             );
         }
     }, {
@@ -26141,7 +26186,17 @@ var RootView = function (_React$Component) {
         key: 'render',
         value: function render() {
             var controlElements = {
-                valueEditor: this.customValueEditor()
+                valueEditor: this.customValueEditor(),
+                actions: [{
+                    className: "apply-filters",
+                    handleClick: function handleClick() {
+                        return console.log('aaa');
+                    },
+                    title: "Apply filters"
+                }, {
+                    className: "clear-action",
+                    title: "Clear"
+                }]
             };
             return _react2.default.createElement(
                 'div',

@@ -24,8 +24,19 @@ class RootView extends React.Component {
 
     render() {
         let controlElements = {
-            valueEditor: this.customValueEditor()
-        }
+            valueEditor: this.customValueEditor(),
+            actions: [
+              {
+                className: "apply-filters",
+                handleClick: () => console.log('aaa'),
+                title: "Apply filters"
+              },
+              {
+                className: "clear-action",
+                title: "Clear"
+              }
+            ]
+        };
         return (
             <div className="flex-box">
                 <div className="scroll">
