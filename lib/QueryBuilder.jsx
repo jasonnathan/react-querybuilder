@@ -283,7 +283,7 @@ export default class QueryBuilder extends React.Component {
         const {onQueryChange} = this.props;
         if (onQueryChange) {
             const query = cloneDeep(this.state.root);
-            console.log(query);
+            // console.log(query);
             onQueryChange(query);
         }
     }
