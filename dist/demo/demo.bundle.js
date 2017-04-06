@@ -11145,7 +11145,7 @@ exports.default = QueryBuilder;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -11163,99 +11163,103 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Rule = function (_React$Component) {
-    _inherits(Rule, _React$Component);
+  _inherits(Rule, _React$Component);
 
-    function Rule() {
-        var _ref;
+  function Rule() {
+    var _ref;
 
-        var _temp, _this, _ret;
+    var _temp, _this, _ret;
 
-        _classCallCheck(this, Rule);
+    _classCallCheck(this, Rule);
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Rule.__proto__ || Object.getPrototypeOf(Rule)).call.apply(_ref, [this].concat(args))), _this), _this.onFieldChanged = function (value) {
-            _this.onElementChanged('field', value);
-        }, _this.onOperatorChanged = function (value) {
-            _this.onElementChanged('operator', value);
-        }, _this.onValueChanged = function (value) {
-            _this.onElementChanged('value', value);
-        }, _this.onElementChanged = function (property, value) {
-            var _this$props = _this.props,
-                id = _this$props.id,
-                onPropChange = _this$props.schema.onPropChange;
-
-
-            onPropChange(property, value, id);
-        }, _this.removeRule = function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            _this.props.schema.onRuleRemove(_this.props.id, _this.props.parentId);
-        }, _temp), _possibleConstructorReturn(_this, _ret);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
     }
 
-    _createClass(Rule, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                field = _props.field,
-                operator = _props.operator,
-                value = _props.value,
-                _props$schema = _props.schema,
-                fields = _props$schema.fields,
-                controls = _props$schema.controls,
-                getOperators = _props$schema.getOperators,
-                classNames = _props$schema.classNames;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Rule.__proto__ || Object.getPrototypeOf(Rule)).call.apply(_ref, [this].concat(args))), _this), _this.onFieldChanged = function (value) {
+      _this.onElementChanged("field", value);
+    }, _this.onOperatorChanged = function (value) {
+      _this.onElementChanged("operator", value);
+    }, _this.onValueChanged = function (value) {
+      _this.onElementChanged("value", value);
+    }, _this.onElementChanged = function (property, value) {
+      var _this$props = _this.props,
+          id = _this$props.id,
+          onPropChange = _this$props.schema.onPropChange;
 
-            return _react2.default.createElement(
-                'div',
-                { className: 'rule ' + classNames.rule },
-                _react2.default.createElement(controls.fieldSelector, {
-                    options: fields,
-                    value: field,
-                    className: 'rule-fields ' + classNames.fields,
-                    handleOnChange: this.onFieldChanged
-                }),
-                _react2.default.createElement(controls.operatorSelector, {
-                    options: getOperators(field),
-                    value: operator,
-                    className: 'rule-operators ' + classNames.operators,
-                    handleOnChange: this.onOperatorChanged
-                }),
-                _react2.default.createElement(controls.valueEditor, {
-                    field: field,
-                    operator: operator,
-                    value: value,
-                    className: 'rule-value ' + classNames.value,
-                    handleOnChange: this.onValueChanged
-                }),
-                _react2.default.createElement(controls.removeRuleAction, {
-                    label: 'x',
-                    className: 'rule-remove ' + classNames.removeRule,
-                    handleOnClick: this.removeRule
-                })
-            );
-        }
-    }], [{
-        key: 'defaultProps',
-        get: function get() {
-            return {
-                id: null,
-                parentId: null,
-                field: null,
-                operator: null,
-                value: null,
-                schema: null
-            };
-        }
-    }]);
 
-    return Rule;
+      onPropChange(property, value, id);
+    }, _this.removeRule = function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      _this.props.schema.onRuleRemove(_this.props.id, _this.props.parentId);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(Rule, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          field = _props.field,
+          operator = _props.operator,
+          value = _props.value,
+          _props$schema = _props.schema,
+          fields = _props$schema.fields,
+          controls = _props$schema.controls,
+          getOperators = _props$schema.getOperators,
+          classNames = _props$schema.classNames;
+
+      return _react2.default.createElement(
+        "div",
+        { className: "rule " + classNames.rule },
+        _react2.default.createElement(controls.fieldSelector, {
+          options: fields,
+          value: field,
+          className: "rule-fields " + classNames.fields,
+          handleOnChange: this.onFieldChanged
+        }),
+        _react2.default.createElement(controls.operatorSelector, {
+          options: getOperators(field),
+          value: operator,
+          className: "rule-operators " + classNames.operators,
+          handleOnChange: this.onOperatorChanged
+        }),
+        _react2.default.createElement(controls.valueEditor, {
+          field: field,
+          operator: operator,
+          value: value,
+          className: "rule-value " + classNames.value,
+          handleOnChange: this.onValueChanged
+        }),
+        _react2.default.createElement(controls.removeRuleAction, {
+          label: "x",
+          className: "rule-remove " + classNames.removeRule,
+          handleOnClick: this.removeRule
+        })
+      );
+    }
+  }]);
+
+  return Rule;
 }(_react2.default.Component);
 
+Rule.propTypes = {
+  field: _react.PropTypes.string,
+  id: _react.PropTypes.string,
+  operator: _react.PropTypes.operator,
+  parentId: _react.PropTypes.string,
+  schema: _react.PropTypes.object,
+  value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number])
+};
+Rule.defaultProps = {
+  id: null,
+  parentId: null,
+  field: null,
+  operator: null,
+  value: null,
+  schema: null
+};
 exports.default = Rule;
 
 /***/ }),
@@ -11453,7 +11457,7 @@ var ActionElement = function (_React$Component) {
   }
 
   _createClass(ActionElement, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       var _props = this.props,
           label = _props.label,
@@ -11462,11 +11466,12 @@ var ActionElement = function (_React$Component) {
 
 
       return _react2.default.createElement(
-        'button',
+        "button",
         { className: className,
           onClick: function onClick(e) {
             return handleOnClick(e);
-          } },
+          }
+        },
         label
       );
     }
@@ -11476,9 +11481,14 @@ var ActionElement = function (_React$Component) {
 }(_react2.default.Component);
 
 ActionElement.propTypes = {
-  label: _react.PropTypes.string,
   className: _react.PropTypes.string,
-  handleOnClick: _react.PropTypes.func
+  handleOnClick: _react.PropTypes.func,
+  label: _react.PropTypes.string
+};
+ActionElement.defaultProps = {
+  className: "",
+  handleOnClick: function handleOnClick() {},
+  label: null
 };
 exports.default = ActionElement;
 
