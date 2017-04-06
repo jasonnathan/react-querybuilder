@@ -1,29 +1,29 @@
-'use strict';
+"use strict";
 
-const merge = require('webpack-merge');
-const webpackCommon = require('./webpack-common.config');
-const CopyPlugin = require('copy-webpack-plugin');
-const path = require('path');
+const merge = require("webpack-merge");
+const webpackCommon = require("./webpack-common.config");
+const CopyPlugin = require("copy-webpack-plugin");
+const path = require("path");
 
 module.exports = merge(webpackCommon, {
   entry: {
-    index: './lib/index.js'
+    index: "./lib/index.js",
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, '../dist'),
-    libraryTarget: 'commonjs2',
+    filename: "[name].js",
+    path: path.resolve(__dirname, "../dist"),
+    libraryTarget: "commonjs2",
   },
   externals: {
-    'react': 'commonjs react',
-    'react-dom': 'commonjs react-dom',
+    "react": "commonjs react",
+    "react-dom": "commonjs react-dom",
   },
 
-  devtool: 'none',
+  devtool: "none",
 
   plugins: [
     new CopyPlugin([{
-      from: './lib/query-builder.scss',
-    }])
-  ]
+      from: "./lib/query-builder.scss",
+    }]),
+  ],
 });

@@ -1,31 +1,33 @@
-import React from 'react';
+import React, {PropTypes} from "react";
 
 export default class ValueEditor extends React.Component {
-  static get propTypes() {
-    return {
-      field: React.PropTypes.string,
-      operator: React.PropTypes.string,
-      value: React.PropTypes.string,
-      handleOnChange: React.PropTypes.func
-    };
+  static propTypes = {
+    handleOnChange: PropTypes.func,
+    operator: PropTypes.string,
+    value: PropTypes.string,
   }
 
+  static defaultProps = {
+    handleOnChange: () => {},
+    operator: "",
+    value: null,
+  }
   constructor(props) {
     super(props);
   }
 
   render() {
-    const {field, operator, value, handleOnChange} = this.props;
+    const {operator, value, handleOnChange} = this.props;
 
-    if (operator === 'null' || operator === 'notNull') {
+    if (operator === "null" || operator === "notNull") {
       return null;
     }
 
     return (
-      <input type="text"
-             value={value}
-             onChange={e=>handleOnChange(e.target.value)} />
-    );
-
+      <input
+        onChange={(e) => handleOnChange(e.target.value)}
+        type="text"
+        value={value}
+      />);
   }
 }

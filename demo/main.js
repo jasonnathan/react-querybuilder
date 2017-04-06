@@ -1,24 +1,25 @@
-import '../lib/query-builder.scss';
-import QueryBuilder from '../lib/index';
+/* eslint-disable */
+import "../lib/query-builder.scss";
+import QueryBuilder from "../lib/index";
 import ReactDOM from "react-dom";
-import React from 'react';
+import React from "react";
 
 const fields = [
-    {name: 'firstName', label: 'First Name'},
-    {name: 'lastName', label: 'Last Name'},
-    {name: 'age', label: 'Age'},
-    {name: 'address', label: 'Address'},
-    {name: 'phone', label: 'Phone'},
-    {name: 'email', label: 'Email'},
-    {name: 'twitter', label: 'Twitter'},
-    {name: 'isDev', label: 'Is a Developer?', value: false},
+    {name: "firstName", label: "First Name"},
+    {name: "lastName", label: "Last Name"},
+    {name: "age", label: "Age"},
+    {name: "address", label: "Address"},
+    {name: "phone", label: "Phone"},
+    {name: "email", label: "Email"},
+    {name: "twitter", label: "Twitter"},
+    {name: "isDev", label: "Is a Developer?", value: false},
 ];
 
 class RootView extends React.Component {
     constructor() {
         super();
         this.state = {
-            query: {}
+            query: {},
         };
     }
 
@@ -28,28 +29,29 @@ class RootView extends React.Component {
             actions: [
               {
                 className: "apply-filters",
-                handleClick: () => console.log('aaa'),
-                title: "Apply filters"
+                handleClick: () => console.log("aaa"),
+                title: "Apply filters",
               },
               {
                 className: "clear-action",
-                title: "Clear"
-              }
-            ]
+                title: "Clear",
+              },
+            ],
         };
         return (
-            <div className="flex-box">
-                <div className="scroll">
-                    <QueryBuilder fields={this.props.fields}
-                                  controlElements={controlElements}
-                                  controlClassnames={{fields: 'form-control'}}
-                                  onQueryChange={this.logQuery.bind(this)}/>
-                </div>
-                <div className="shrink query-log scroll">
-                    <h4>Query</h4>
-                    <pre>{JSON.stringify(this.state.query, null, 2)}</pre>
-                </div>
+          <div className="flex-box">
+            <div className="scroll">
+              <QueryBuilder fields={this.props.fields}
+                controlElements={controlElements}
+                controlClassnames={{fields: "form-control"}}
+                onQueryChange={this.logQuery.bind(this)}
+              />
             </div>
+            <div className="shrink query-log scroll">
+              <h4>Query</h4>
+              <pre>{JSON.stringify(this.state.query, null, 2)}</pre>
+            </div>
+          </div>
         );
     }
 
@@ -60,18 +62,20 @@ class RootView extends React.Component {
             }
 
             render() {
-                if (this.props.field !== 'isDev' || this.props.operator !== '=') {
-                    return <input type="text"
-                                  value={this.props.value}
-                                  onChange={e => this.props.handleOnChange(e.target.value)}/>
+                if (this.props.field !== "isDev" || this.props.operator !== "=") {
+                    return (<input type="text"
+                      value={this.props.value}
+                      onChange={(e) => this.props.handleOnChange(e.target.value)}
+                            />);
                 }
 
                 return (
-                    <span>
-                        <input type="checkbox"
-                               value={!!this.props.value}
-                               onChange={e => this.props.handleOnChange(e.target.checked)}/>
-                    </span>
+                  <span>
+                    <input type="checkbox"
+                      value={!!this.props.value}
+                      onChange={(e) => this.props.handleOnChange(e.target.checked)}
+                    />
+                  </span>
                 );
             }
         };
@@ -84,5 +88,4 @@ class RootView extends React.Component {
 
 }
 
-ReactDOM.render(<RootView fields={fields}/>, document.querySelector('.container'));
-
+ReactDOM.render(<RootView fields={fields} />, document.querySelector(".container"));

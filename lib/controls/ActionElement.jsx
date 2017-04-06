@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 export default class ActionElement extends React.Component {
-  static get propTypes() {
-    return {
-      label: React.PropTypes.string,
-      className: React.PropTypes.string,
-      handleOnClick: React.PropTypes.func
-    }
+  static propTypes = {
+      label: PropTypes.string,
+      className: PropTypes.string,
+      handleOnClick: PropTypes.func
   }
 
   constructor(props) {
@@ -18,7 +16,7 @@ export default class ActionElement extends React.Component {
 
     return (
       <button className={className}
-              onClick={e=>handleOnClick(e)}>
+        onClick={e=>handleOnClick(e)}>
         {label}
       </button>
     );
