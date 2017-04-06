@@ -1,0 +1,67 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/all",
+        "google"
+    ],
+    "plugins": [
+        "babel",
+        "react",
+        "promise"
+    ],
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "globals": {
+        "__DEV__": false,
+        "__TEST__": false,
+        "__PROD__": false,
+        "__COVERAGE__": false
+    },
+    "rules": {
+        "max-len": [
+            2,
+            120,
+            2
+        ],
+        "quotes": [
+            2,
+            "double"
+        ],
+        "no-invalid-this": 0,
+        "require-jsdoc": 0,
+        "func-call-spacing": 0,
+        "no-console": 0,
+        "new-cap": 0,
+        "react/jsx-indent": [
+            2,
+            2
+        ],
+        "react/jsx-indent-props": [
+            2,
+            2
+        ],
+        "react/jsx-max-props-per-line": [
+            2,
+            {
+                "maximum": 4
+            }
+        ],
+        "react/jsx-no-bind": [
+            2,
+            {
+                "ignoreRefs": true,
+                "allowArrowFunctions": true
+            }
+        ],
+        "react/jsx-filename-extension": 0,
+        "react/jsx-no-literals": 0,
+        "react/forbid-component-props": 0,
+        "react/forbid-prop-types": 0,
+        "react/no-set-state": 0,
+        "react/require-optimization": 0
+    }
+}

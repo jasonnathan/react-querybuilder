@@ -1,0 +1,7 @@
+**/node_modules/**
+**/__snapshots__/**
+**/.coverage/**
+
+resources/assets/js/site-audit/node_modules/**
+resources/assets/js/site-audit/dist/**
+resources/assets/js/site-audit/src/index.html
