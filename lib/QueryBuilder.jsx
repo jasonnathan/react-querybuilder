@@ -1,6 +1,6 @@
+import React from "react";
+import PropTypes from "prop-types";
 import uniqueId from "uuid/v4";
-import cloneDeep from "lodash/cloneDeep";
-import React, {PropTypes} from "react";
 
 import RuleGroup from "./RuleGroup";
 import {ActionElement, ValueEditor, ValueSelector} from "./controls/index";
@@ -190,8 +190,6 @@ export default class QueryBuilder extends React.Component {
               return ops;
           }
       }
-
-
       return this.props.operators;
   }
 
@@ -258,7 +256,7 @@ export default class QueryBuilder extends React.Component {
 
       const {onQueryChange} = this.props;
       if (onQueryChange) {
-          const query = cloneDeep(this.state.root);
+          const query = {...this.state.root};
           // console.log(query);
           onQueryChange(query);
       }
