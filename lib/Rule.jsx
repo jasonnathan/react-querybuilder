@@ -5,7 +5,7 @@ export default class Rule extends React.Component {
   static propTypes = {
     field: PropTypes.string,
     id: PropTypes.string,
-    operator: PropTypes.operator,
+    operator: PropTypes.any,
     parentId: PropTypes.string,
     schema: PropTypes.object,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
