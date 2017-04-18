@@ -11247,7 +11247,7 @@ var Rule = function (_React$Component) {
 Rule.propTypes = {
   field: _react.PropTypes.string,
   id: _react.PropTypes.string,
-  operator: _react.PropTypes.operator,
+  operator: _react.PropTypes.any,
   parentId: _react.PropTypes.string,
   schema: _react.PropTypes.object,
   value: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.number])
