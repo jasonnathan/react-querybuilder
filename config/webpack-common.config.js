@@ -12,8 +12,8 @@ module.exports = {
       },
       {
         test: /\.scss/,
-        loader: ExtractTextPlugin.extract({
-          loader: ["css-loader", "sass-loader"],
+        use: ExtractTextPlugin.extract({
+          use: [{loader: "css-loader"}, {loader: "sass-loader"}],
         }),
       },
     ],
@@ -22,7 +22,5 @@ module.exports = {
     extensions: [".js", ".jsx", ".scss"],
   },
 
-  plugins: [
-    new ExtractTextPlugin("query-builder.css"),
-  ],
+  plugins: [new ExtractTextPlugin("query-builder.css")],
 };
