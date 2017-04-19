@@ -1041,7 +1041,7 @@ Rule.defaultProps = {
   parentId: null,
   field: null,
   operator: null,
-  value: null,
+  value: "",
   schema: null
 };
 exports.default = Rule;

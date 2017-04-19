@@ -31,7 +31,7 @@ export default class Rule extends React.Component {
     parentId: null,
     field: null,
     operator: null,
-    value: null,
+    value: "",
     schema: null,
   };
 
